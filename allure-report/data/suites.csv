@@ -1,0 +1,3 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Thu Jun 29 18:21:03 ALMT 2023","Thu Jun 29 18:21:06 ALMT 2023","3497","","tech.apileads.test.Tests.ApileadsMainTest","","tech.apileads.test.Tests.ApileadsMainTest","insertDataCombinationsTest","insertDataCombinationsTest(String, String, String, String) [1] user@mail.ru, user, any text, Discount",""
+"passed","Thu Jun 29 18:21:06 ALMT 2023","Thu Jun 29 18:21:09 ALMT 2023","3002","","tech.apileads.test.Tests.ApileadsMainTest","","tech.apileads.test.Tests.ApileadsMainTest","insertDataCombinationsTest","insertDataCombinationsTest(String, String, String, String) [2] usermail.ru, , any text, Offer",""

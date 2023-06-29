@@ -1,0 +1,9 @@
+﻿user@mail.ru;user;any text;Offer
+user@mail.ru;;;Sale
+user@mail.ru;user;any text;Discount
+usermail.ru;;any text;Offer
+usermail.ru;user;any text;Sale
+usermail.ru;user;;Discount
+;user;;Offer
+;user;any text;Sale
+;;any text;Discount
