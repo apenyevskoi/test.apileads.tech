@@ -91,7 +91,7 @@ public class ApileadsMainPage{
         Assertions.assertTrue(inputName.isDisplayed());
         Assertions.assertTrue(inputName.isEnabled());
         inputName.sendKeys(name);
-        return inputName.getText();
+        return inputName.getAttribute("value");
     }
 
     /**

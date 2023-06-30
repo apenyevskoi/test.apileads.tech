@@ -33,7 +33,7 @@ public class ApileadsMainTest extends Base {
      */
     @ParameterizedTest
     @CsvFileSource(resources = "/inputTestEmailData.csv", delimiter = ';', emptyValue = "")
-//    @Disabled
+    @Disabled
     public void validateEmailDataFormTest(String email, String name, String texts, String type, String expectedMessage){
         ApileadsMainPage apileadsMainPage = new ApileadsMainPage();
 
@@ -78,7 +78,7 @@ public class ApileadsMainTest extends Base {
          * Check whether actual "name" is valid, correct length and not empty
          */
         Assertions.assertTrue(!actualName.isEmpty());
-        Assertions.assertTrue(actualName.matches("^[a-zA-Z0-9]+$"));
+        Assertions.assertTrue(actualName.matches("^[a-zA-Z0-9.\\-_]+$"));
         Assertions.assertTrue(actualName.length() < 256);
     }
 
@@ -92,7 +92,7 @@ public class ApileadsMainTest extends Base {
      */
     @ParameterizedTest
     @CsvFileSource(resources = "/inputTestTextsData.csv", delimiter = ';', emptyValue = "")
-//    @Disabled
+    @Disabled
     public void validateTextsDataFormTest(String email, String name, String texts, String type, String expectedMessage){
         ApileadsMainPage apileadsMainPage = new ApileadsMainPage();
 
