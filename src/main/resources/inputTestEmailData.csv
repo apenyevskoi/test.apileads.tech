@@ -1,0 +1,5 @@
+user@mail.ru;user;any text;Offer;LoggedIn
+user<@mail.ru;user.name;any text;Discount;Часть адреса до @ не может содержать символ "<".
+usermail.ru;user@user;any text;Offer;Адрес электронной почты должен содержать символ "@". В адресе "usermail.ru" отсутствует символ "@".
+user@;user;any text;Sale;Введите часть адреса после символа "@". Адрес "user@" неполный.
+"";user.name;any text;Offer;Email is empty

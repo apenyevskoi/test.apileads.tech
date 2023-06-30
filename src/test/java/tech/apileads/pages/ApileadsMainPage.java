@@ -1,14 +1,21 @@
 package tech.apileads.pages;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import io.qameta.allure.Allure;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import tech.apileads.Base;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static tech.apileads.Base.driver;
 
 /**
  * Page Class of "https://test.apileads.tech/"
@@ -37,43 +44,78 @@ public class ApileadsMainPage{
      * Constructor of tech.apileads.test.Pages.ApileadsMainPage
      */
     public ApileadsMainPage(){
-        PageFactory.initElements(Base.driver, this);
+        PageFactory.initElements(driver, this);
         dropDown = new Select(selectType);
     }
 
     /**
      * Insert "email" data into input form
      */
-    public void insertEmailData(String email){
+    public String insertEmailData(String email, String expectedMessage){
+        String actual;
         Assertions.assertTrue(inputEmail.isDisplayed());
+        Assertions.assertTrue(inputEmail.isEnabled());
         inputEmail.sendKeys(email);
+
+        /**
+         * Intercept attribute "validationMessage" in "Email" form if incorrect email was inputted
+         */
+        if (expectedMessage.contains("Адрес электронной почты должен содержать символ")) {
+            actual = new WebDriverWait(driver, 7)
+                    .until(ExpectedConditions
+                            .elementToBeClickable(By.cssSelector("div.form-outline.mb-4 input#email")))
+                    .getAttribute("validationMessage");
+            return actual;
+        }
+        if (expectedMessage.contains("Часть адреса до символа")) {
+            actual = new WebDriverWait(driver, 7)
+                    .until(ExpectedConditions
+                            .elementToBeClickable(By.cssSelector("div.form-outline.mb-4 input#email")))
+                    .getAttribute("validationMessage");
+            return actual;
+        }
+        if (expectedMessage.contains("Введите часть адреса после символа")) {
+            actual = new WebDriverWait(driver, 7)
+                    .until(ExpectedConditions
+                            .elementToBeClickable(By.cssSelector("div.form-outline.mb-4 input#email")))
+                    .getAttribute("validationMessage");
+            return actual;
+        }
+        return "";
     }
 
     /**
      * Insert "name" data into input form
      */
-    public void insertNameData(String name){
+    public String insertNameData(String name){
         Assertions.assertTrue(inputName.isDisplayed());
+        Assertions.assertTrue(inputName.isEnabled());
         inputName.sendKeys(name);
+        return inputName.getText();
     }
 
     /**
      * Insert "text" data into input form
      */
-    public void insertTextsData(String texts){
+    public String insertTextsData(String texts){
         Assertions.assertTrue(inputTexts.isDisplayed());
+        Assertions.assertTrue(inputTexts.isEnabled());
         inputTexts.sendKeys(texts);
+        return inputTexts.getAttribute("value");
     }
 
     /**
      * Select record in drop-box form
      */
     public void selectRecord(String type){
+        Assertions.assertTrue(selectType.isDisplayed());
+        Assertions.assertTrue(selectType.isEnabled());
         try {
             List<WebElement> dropDownList = dropDown.getAllSelectedOptions();
-            List<String> shouldBeList = Arrays.asList("Offer", "Sale", "Discount");
+            Assertions.assertFalse(dropDownList.isEmpty());
+            List<String> expectedDropDownOptionsList = Arrays.asList("Offer", "Sale", "Discount");
             for (int i = 0; i < dropDownList.size(); i++) {
-                Assertions.assertTrue(dropDownList.get(i).getText().equals(shouldBeList.get(i)));
+                Assertions.assertTrue(dropDownList.get(i).getText().equals(expectedDropDownOptionsList.get(i)));
             }
         }catch (Exception e){
         }

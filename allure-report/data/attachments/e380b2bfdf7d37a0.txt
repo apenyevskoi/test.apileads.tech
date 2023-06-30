@@ -1,0 +1,1 @@
+[[2023-06-30T15:15:40+0600] [SEVERE] https://test.apileads.tech/favicon.ico - Failed to load resource: the server responded with a status of 404 ()]
