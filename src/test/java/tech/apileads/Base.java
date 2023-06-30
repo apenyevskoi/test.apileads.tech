@@ -1,4 +1,4 @@
-package tech.apileads.test;
+package tech.apileads;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +19,8 @@ public class Base {
 
     public static WebDriverWait wait;
 
+    public static String apileadsUrl = "https://test.apileads.tech/";
+
     /**
      * setting up Chrome WebDriver and Options. Register logger reporter
      */
@@ -29,6 +31,7 @@ public class Base {
         driver = new EventFiringWebDriver(new ChromeDriver(chromeOptions));
         driver.register(new CustomReports());
         driver.manage().window().maximize();
+        driver.get(apileadsUrl);
     }
 
     /**

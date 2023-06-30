@@ -1,4 +1,4 @@
-package tech.apileads.test;
+package tech.apileads;
 
 import io.qameta.allure.Allure;
 import org.openqa.selenium.By;

@@ -1,4 +1,4 @@
-package tech.apileads.test;
+package tech.apileads;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Allure;
@@ -21,7 +21,7 @@ public class TestListener implements TestWatcher {
     private final static Logger logger = (Logger) LoggerFactory.getLogger(WebDriver.class);
 
     /**
-     * Description of actions during "Failed". Provides report and screenshot to allure
+     * Description of actions during "Failed" test. Provides report and screenshot to allure
      * @param context
      * @param cause
      */
@@ -29,17 +29,18 @@ public class TestListener implements TestWatcher {
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
         try {
-            Allure.getLifecycle().addAttachment("Скриншот успешного теста", "image/png", "png",
+            Allure.getLifecycle().addAttachment("Скриншот провального теста", "image/png", "png",
                     ((TakesScreenshot) Base.driver).getScreenshotAs(OutputType.BYTES));
-            Allure.addAttachment("Test Fail, Screenshot is done",
+            Allure.addAttachment("Screenshot is done",
                     String.valueOf(Base.driver.manage().logs().get(LogType.BROWSER).getAll()));
-            WebDriverManager.chromedriver().quit();
-            Base.driver.close();
             Allure.step("Failure on " + context.getTestMethod());
         }catch (Exception e) {
             System.out.println("-------------------------------------------------------------------------------------------------------------");
             //e.getClass().getName();
             e.printStackTrace();
+        }finally {
+            WebDriverManager.chromedriver().quit();
+            Base.driver.close();
         }
     }
 
@@ -51,17 +52,14 @@ public class TestListener implements TestWatcher {
     @Override
     public void testSuccessful(ExtensionContext context) {
         try {
-            Allure.getLifecycle().addAttachment("Скриншот на месте падения теста", "image/png", "png",
-                    ((TakesScreenshot) Base.driver).getScreenshotAs(OutputType.BYTES));
-            Allure.addAttachment("Test is successed, Screenshot is done",
-                    String.valueOf(Base.driver.manage().logs().get(LogType.BROWSER).getAll()));
             Allure.step("Success on " + context.getRequiredTestMethod().getName());
-            WebDriverManager.chromedriver().quit();
-            Base.driver.close();
         }catch (Exception e) {
             System.out.println("-------------------------------------------------------------------------------------------------------------");
             //e.getClass().getName();
             e.printStackTrace();
+        }finally {
+            WebDriverManager.chromedriver().quit();
+            Base.driver.close();
         }
     }
 }
